@@ -44,7 +44,6 @@ public class Prompt
             System.out.printf("\n>> Successfully signed in!\n");
         else
             System.out.printf("\n>> Wrong combination.. Try again later\n");
-        
     }
 
     public static void main(String args[])

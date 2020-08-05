@@ -33,7 +33,7 @@ public class Engine
         // TODO: verifying if email and login_user already exist
         // if ( !email.equals(another_user.get_email()) )
         
-        hash_users.put(id, new User(name, surname, email, phone_number, login_user, login_password));
+        hash_users.put(id, new User(name, surname, email, phone_number, login_user));
         
         return true;
     }
@@ -67,18 +67,16 @@ class User
     private String email;
     private String phone_number;
     private String login_user;
-    private String login_password;
     /* --class attributes-- */
 
     /* --constructors-- */
-    public User(String name, String surname, String email, String phone_number, String login_user, String login_password)
+    public User(String name, String surname, String email, String phone_number, String login_user)
     {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.phone_number = phone_number;
         this.login_user = login_user;
-        this.login_password = login_password;
     }
     /* --constructors-- */
 
