@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class User
 {
     /* --class attributes-- */
@@ -6,6 +8,8 @@ public class User
     private String email;
     private String phone_number;
     private String login_user;
+
+    private ArrayList<Reminder> reminders;
     /* --class attributes-- */
 
     /* --constructors-- */
@@ -16,8 +20,20 @@ public class User
         this.email = email;
         this.phone_number = phone_number;
         this.login_user = login_user;
+
+        this.reminders = new ArrayList<Reminder>();
     }
     /* --constructors-- */
+
+    /* --public methods-- */
+    public void new_reminder(String title, String description)
+    {
+        System.out.printf("\n>> Reminder: %s - %s", title, description);
+    }
+    /* --public methods-- */
+
+    /* --private methods-- */
+    /* --private methods-- */
 
     /* --setters-- */
     /* --setters-- */
