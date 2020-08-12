@@ -40,10 +40,23 @@ public class Prompt
         System.out.printf("<< Password: ");
         String login_password = input.nextLine();
 
-        if ( engine.find_user(login_user, login_password) )
+        if ( engine.login_user(login_user, login_password) )
             System.out.printf("\n>> Successfully signed in!\n");
         else
             System.out.printf("\n>> Wrong combination.. Try again later\n");
+    }
+
+    private void new_reminder(Engine engine)
+    {
+        Scanner input = new Scanner(System.in);
+
+        System.out.printf("\n<< Title: ");
+        String title = input.nextLine();
+        
+        System.out.printf("<< Desciption: ");
+        String description = input.nextLine();
+
+        engine.add_reminder(title, description);
     }
 
     public static void main(String args[])
@@ -59,7 +72,7 @@ public class Prompt
         {
             System.out.printf("\n-----------------------------------------\n");
             System.out.printf(">> To-do List Command Prompt (0 to close)\n");
-            System.out.printf("\n>> 1. Sign up\n>> 2. Sign in\n<< Op: ");
+            System.out.printf("\n>> 1. Sign up\n>> 2. Sign in\n>> 3. New reminder\n<< Op: ");
             
             op = input.nextInt();
             
@@ -71,6 +84,10 @@ public class Prompt
                 
                 case 2:
                     app.sign_in(engine);
+                    break;
+
+                case 3:
+                    app.new_reminder(engine);
                     break;
                 
                 case 0:
