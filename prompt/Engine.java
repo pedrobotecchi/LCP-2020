@@ -20,14 +20,14 @@ public class Engine
 
     /* --public methods-- */
     // add user to the hashmap: returns true if successfully added | false if not
-    public boolean add_user(String name, String surname, String email, String phone_number, String login_user, String login_password)
+    public boolean add_user(String name, String surname, String email, String phone_number, String user_login, String password_login)
     {
-        if ( !tree_login_user.contains(login_user) )
+        if ( !tree_login_user.contains(user_login) )
         {
-            tree_login_user.add(login_user);
+            tree_login_user.add(user_login);
             
-            int id = (login_user + login_password).hashCode();
-            hash_users.put(id, new User(name, surname, email, phone_number, login_user));
+            int id = (user_login + password_login).hashCode();
+            hash_users.put(id, new User(name, surname, email, phone_number, user_login));
             
             return true;
         }
@@ -35,9 +35,9 @@ public class Engine
     }
 
     // try to login with a user: returns true if the user is found and set the current_user | false if it doesn't find
-    public boolean login_user(String login_user, String login_password)
+    public boolean login_user(String user_login, String password_login)
     {
-        int id = (login_user + login_password).hashCode();
+        int id = (user_login + password_login).hashCode();
 
         if ( hash_users.containsKey(id) )
         {
