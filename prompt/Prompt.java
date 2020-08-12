@@ -27,7 +27,7 @@ public class Prompt
         
         if ( engine.add_user(name, surname, email, phone_number, login_user, login_password) )
             System.out.printf("\n>> User successfully created!\n");
-        // TODO: show error if email and login_user are already taken
+        else System.out.printf("\n>> User already exists!\n");
     }
 
     private void sign_in(Engine engine)
