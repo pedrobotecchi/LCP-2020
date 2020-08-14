@@ -5,19 +5,33 @@
  */
 package lcpproject;
 
-import static lcpproject.SignIn.sgIn;
-
+import classes.*;
+import java.awt.Color;
+import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Pedro Botecchi
  */
 public class SignUp extends javax.swing.JFrame {
+    /* --class User attributes-- */
+    private String name;
+    private String surname;
+    private String email;
+    private String phone_number;
+    private String login_user;
+    private String password_user;
+    /* --classes -- */ 
     static SignUp sgUP;
+    static SignIn sgIN;
+    static Engine engine = new Engine();
+
     /**
      * Creates new form SignUp
      */
-    public SignUp() {
+    public SignUp(SignIn sgIN) {
         initComponents();
+        this.sgIN = sgIN;
     }
 
     /**
@@ -36,21 +50,22 @@ public class SignUp extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        nameField = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        surnameField = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        emailField = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        phoneField = new javax.swing.JFormattedTextField();
         jLabel11 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        userField = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        passwordField = new javax.swing.JPasswordField();
         jLabel13 = new javax.swing.JLabel();
-        jPasswordField2 = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        cpasswordField = new javax.swing.JPasswordField();
+        sendButton = new javax.swing.JButton();
+        closeButton = new javax.swing.JButton();
+        incorrectField = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -59,7 +74,6 @@ public class SignUp extends javax.swing.JFrame {
         setLocationByPlatform(true);
         setMaximumSize(new java.awt.Dimension(1920, 1080));
         setMinimumSize(new java.awt.Dimension(1280, 720));
-        setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -96,60 +110,73 @@ public class SignUp extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Name:");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 320, 50, 20));
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 320, 90, -1));
+        getContentPane().add(nameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 320, 90, -1));
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Last Name:");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 320, 110, -1));
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 320, 120, -1));
+        getContentPane().add(surnameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 320, 120, -1));
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("E-mail: ");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 390, 60, 30));
-        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 390, 190, 30));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 380, 60, 30));
+        getContentPane().add(emailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 380, 190, 30));
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Phone:");
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 340, 70, 40));
 
-        jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
+        phoneField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextField1ActionPerformed(evt);
+                phoneFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(jFormattedTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 350, 90, -1));
+        getContentPane().add(phoneField, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 350, 90, -1));
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Username:");
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 420, 90, 20));
-        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 420, 190, -1));
+        getContentPane().add(userField, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 420, 190, -1));
 
         jLabel12.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Password:");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 450, 80, 20));
-        getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 450, 190, -1));
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 460, 80, 20));
+        getContentPane().add(passwordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 450, 190, 30));
 
-        jLabel13.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Confirm Password:");
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 480, 150, 20));
-        getContentPane().add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 480, 120, -1));
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 490, 100, 20));
+        getContentPane().add(cpasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 490, 180, 20));
 
-        jButton1.setBackground(new java.awt.Color(50, 50, 52));
-        jButton1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Send");
-        jButton1.setOpaque(false);
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 520, 100, -1));
+        sendButton.setBackground(new java.awt.Color(50, 50, 52));
+        sendButton.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        sendButton.setForeground(new java.awt.Color(255, 255, 255));
+        sendButton.setText("Send");
+        sendButton.setOpaque(false);
+        sendButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(sendButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 520, 90, -1));
 
-        jButton2.setBackground(new java.awt.Color(255, 51, 51));
-        jButton2.setText("X");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 170, 40, 30));
+        closeButton.setBackground(new java.awt.Color(255, 51, 51));
+        closeButton.setText("X");
+        closeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(closeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 170, 40, 30));
+
+        incorrectField.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(incorrectField, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 530, 230, 20));
 
         background.setFont(new java.awt.Font("Arial Narrow", 1, 48)); // NOI18N
         background.setForeground(new java.awt.Color(255, 255, 255));
@@ -159,9 +186,69 @@ public class SignUp extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
+    private void phoneFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextField1ActionPerformed
+    }//GEN-LAST:event_phoneFieldActionPerformed
+
+    private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
+        // TODO add your handling code here:
+        
+        //-- Vars Uses --//
+        String cpassword;
+        // Fazer a validação dos dados
+        boolean validationFlag = false;
+        
+        /*-- Catch all the fields (Do a future validation) --*/
+        name = nameField.getText();
+        surname = surnameField.getText();
+        phone_number = phoneField.getText();
+        email = emailField.getText();
+        login_user = userField.getText();
+        password_user = new String(passwordField.getPassword());
+        cpassword = new String(cpasswordField.getPassword());
+        /*-- --*/
+        
+        /*-- Do the validations and set validation flag if something goes wrong --*/
+        if(!password_user.equals(cpassword)){
+            incorrectField.setText("Passwords does not match!!");
+            passwordField.setBorder(BorderFactory.createLineBorder(Color.RED));
+            cpasswordField.setBorder(BorderFactory.createLineBorder(Color.RED));
+            validationFlag = true;
+        }
+        
+        if(!engine.emailValidation(email)){
+            incorrectField.setText("Invalid e-mail address!!");
+            emailField.setBorder(BorderFactory.createLineBorder(Color.RED));
+            validationFlag = true;
+        } 
+        
+        if(!engine.phoneValidation(phone_number)){
+            incorrectField.setText("Invalid phone number!!");
+            phoneField.setBorder(BorderFactory.createLineBorder(Color.RED));
+            validationFlag = true;
+        }
+        
+        if(!validationFlag){
+                if(engine.add_user(name, surname, email, phone_number, login_user, password_user)){
+                    JOptionPane.showMessageDialog(null,"User Sined-up. Welcome!!");
+                    sgIN.setEngine(engine);
+                    setVisible(false);
+                    sgIN.setVisible(true);   
+                } else {
+                    incorrectField.setText("User name already exists!!");
+                    userField.setBorder(BorderFactory.createLineBorder(Color.RED));
+                }
+        }
+        
+        //engine.add_user(name, surname, email, phone_number, user_login, password_login)
+
+    }//GEN-LAST:event_sendButtonActionPerformed
+
+    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        sgIN.setVisible(true);
+    }//GEN-LAST:event_closeButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,7 +280,7 @@ public class SignUp extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                sgUP = new SignUp();
+                sgUP = new SignUp(sgIN);
                 sgUP.setLocationRelativeTo(null);
                 sgUP.setVisible(true);
             }
@@ -202,9 +289,10 @@ public class SignUp extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JButton closeButton;
+    private javax.swing.JPasswordField cpasswordField;
+    private javax.swing.JTextField emailField;
+    private javax.swing.JLabel incorrectField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -218,11 +306,11 @@ public class SignUp extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JPasswordField jPasswordField2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField nameField;
+    private javax.swing.JPasswordField passwordField;
+    private javax.swing.JFormattedTextField phoneField;
+    private javax.swing.JButton sendButton;
+    private javax.swing.JTextField surnameField;
+    private javax.swing.JTextField userField;
     // End of variables declaration//GEN-END:variables
 }

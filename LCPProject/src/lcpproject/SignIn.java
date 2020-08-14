@@ -6,6 +6,7 @@
 package lcpproject;
 
 import javax.swing.JOptionPane;
+import classes.*;
 
 /**
  *
@@ -14,12 +15,17 @@ import javax.swing.JOptionPane;
 public class SignIn extends javax.swing.JFrame {
 
     static SignIn sgIn;
+    private String username;
+    private char[] password; 
+    private Engine engine = new Engine();
+    private Prompt app = new Prompt();
     
     /**
      * Creates new form SignIn
      */
     public SignIn() {
         initComponents();
+        incorrectLabel.setVisible(false);
     }
 
     /**
@@ -44,6 +50,7 @@ public class SignIn extends javax.swing.JFrame {
         loginLabel = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        incorrectLabel = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -52,7 +59,6 @@ public class SignIn extends javax.swing.JFrame {
         setLocationByPlatform(true);
         setMaximumSize(new java.awt.Dimension(1920, 1080));
         setMinimumSize(new java.awt.Dimension(1280, 720));
-        setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -80,6 +86,11 @@ public class SignIn extends javax.swing.JFrame {
         loginButton.setText("Login");
         loginButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         loginButton.setBorderPainted(false);
+        loginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(loginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 460, 140, 30));
 
         signUpButton.setBackground(new java.awt.Color(51, 51, 51));
@@ -134,6 +145,10 @@ public class SignIn extends javax.swing.JFrame {
         jLabel6.setOpaque(true);
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 110, 100, 80));
 
+        incorrectLabel.setForeground(new java.awt.Color(255, 255, 255));
+        incorrectLabel.setText("Password and/or user incorrects!!");
+        getContentPane().add(incorrectLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 440, 170, -1));
+
         background.setBackground(new java.awt.Color(50, 50, 52));
         background.setForeground(new java.awt.Color(50, 50, 52));
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lcpproject/Background.png"))); // NOI18N
@@ -144,11 +159,31 @@ public class SignIn extends javax.swing.JFrame {
 
     private void signUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpButtonActionPerformed
         // TODO add your handling code here:
-        SignUp sgUP = new SignUp();
+        SignUp sgUP = new SignUp(this);
         setVisible(false);
         sgUP.setVisible(true);
     }//GEN-LAST:event_signUpButtonActionPerformed
 
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        // TODO add your handling code here:
+        username = userField.getText();
+        password = passwordField.getPassword();
+        
+        // Varre o banco de dados procurando pelo usuário passado e retorna se foi bem sucedido ou não
+        if(engine.login_user(username, String.valueOf(password))){
+            JOptionPane.showMessageDialog(null, "Welcome to the system!!");
+            incorrectLabel.setVisible(false);
+            // Insert the actviities panel wich i will built later
+        } else {
+            incorrectLabel.setVisible(true);
+        }
+        
+        // Criar a interface para controle de atividades (Utilizar menus?)
+    }//GEN-LAST:event_loginButtonActionPerformed
+
+    public void setEngine(Engine engine){ this.engine = engine; }
+    public Engine getEngine(){ return this.engine;}
+    
     /**
      * @param args the command line arguments
      */
@@ -190,6 +225,7 @@ public class SignIn extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
+    private javax.swing.JLabel incorrectLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
