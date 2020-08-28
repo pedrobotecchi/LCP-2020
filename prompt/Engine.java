@@ -49,11 +49,15 @@ public class Engine
     }
 
     // add a new reminder to the selected user: returns true if successfully added | false if not
-    public void add_reminder(String title, String description)
+    public boolean add_reminder(String title, String description)
     {
         if ( this.current_user != null )
+        {
             this.current_user.new_reminder(title, description);
-        // else System.out.printf("\n>> Login first\n"); // TODO: throw exception if current_user == null (login_user was never called or returned false)
+            return true;
+        }
+        else
+            return false;
     }
 
     public ArrayList<Reminder> show_reminders()
