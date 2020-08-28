@@ -27,5 +27,7 @@ public class Reminder
     /* --setters-- */
     
     /* --getters-- */
+    public String get_title() { return this.title; }
+    public String get_description() { return this.description; }
     /* --getters-- */
 }
