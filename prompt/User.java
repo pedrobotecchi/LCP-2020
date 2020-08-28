@@ -28,7 +28,6 @@ public class User
     /* --public methods-- */
     public void new_reminder(String title, String description)
     {
-        //System.out.printf("\n>> Reminder: %s - %s", title, description);
         this.reminders.add(new Reminder(title, description));
     }
 
