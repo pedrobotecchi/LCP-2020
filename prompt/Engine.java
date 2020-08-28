@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.TreeSet;
+import java.util.ArrayList;
 
 public class Engine
 {
@@ -47,12 +48,20 @@ public class Engine
         else return false;
     }
 
-    // add a new reminder to the selected user
+    // add a new reminder to the selected user: returns true if successfully added | false if not
     public void add_reminder(String title, String description)
     {
         if ( this.current_user != null )
             this.current_user.new_reminder(title, description);
         // else System.out.printf("\n>> Login first\n"); // TODO: throw exception if current_user == null (login_user was never called or returned false)
+    }
+
+    public ArrayList<Reminder> show_reminders()
+    {
+        if ( this.current_user != null )
+            return this.current_user.get_reminders();
+        else
+            return null;
     }
     /* --public methods-- */
     
