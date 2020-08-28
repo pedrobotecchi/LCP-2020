@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Prompt
 {
@@ -59,6 +61,25 @@ public class Prompt
         engine.add_reminder(title, description);
     }
 
+    private void show_reminders(Engine engine)
+    {
+        ArrayList<Reminder> reminders = engine.show_reminders();
+        
+        if ( reminders != null )
+        {
+            Iterator<Reminder> i = reminders.iterator();
+    
+            System.out.println();
+            while ( i.hasNext() )
+            {
+                Reminder cur_reminder = i.next();
+                System.out.printf(">> Reminder: %s - %s\n", cur_reminder.get_title(), cur_reminder.get_description());
+            }
+        }
+        else
+            System.out.printf("\n>> Login first!\n");
+    }
+
     public static void main(String args[])
     {
         Prompt app = new Prompt();
@@ -72,7 +93,7 @@ public class Prompt
         {
             System.out.printf("\n-----------------------------------------\n");
             System.out.printf(">> To-do List Command Prompt (0 to close)\n");
-            System.out.printf("\n>> 1. Sign up\n>> 2. Sign in\n>> 3. New reminder\n<< Op: ");
+            System.out.printf("\n>> 1. Sign up\n>> 2. Sign in\n>> 3. Create reminder\n>> 4. Show reminders\n<< Op: ");
             
             op = input.nextInt();
             
@@ -88,6 +109,10 @@ public class Prompt
 
                 case 3:
                     app.create_reminder(engine);
+                    break;
+
+                case 4:
+                    app.show_reminders(engine);
                     break;
                 
                 case 0:
