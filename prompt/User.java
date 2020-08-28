@@ -28,16 +28,19 @@ public class User
     /* --public methods-- */
     public void new_reminder(String title, String description)
     {
-        System.out.printf("\n>> Reminder: %s - %s", title, description);
+        //System.out.printf("\n>> Reminder: %s - %s", title, description);
+        this.reminders.add(new Reminder(title, description));
     }
+
     /* --public methods-- */
-
+    
     /* --private methods-- */
     /* --private methods-- */
-
+    
     /* --setters-- */
     /* --setters-- */
     
     /* --getters-- */
+    public ArrayList<Reminder> get_reminders() { return this.reminders; }
     /* --getters-- */
 }
