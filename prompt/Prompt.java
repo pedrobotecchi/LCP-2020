@@ -20,12 +20,12 @@ public class Prompt
         
 
         System.out.printf("\n<< User: ");
-        String login_user = input.nextLine();
+        String user_login = input.nextLine();   // TODO: change var names to avoid confusion
         
         System.out.printf("<< Password: ");
-        String login_password = input.nextLine();
+        String password_login = input.nextLine();
         
-        if ( engine.add_user(name, surname, email, phone_number, login_user, login_password) )
+        if ( engine.add_user(name, surname, email, phone_number, user_login, password_login) )
             System.out.printf("\n>> User successfully created!\n");
         else System.out.printf("\n>> User already exists!\n");
     }
@@ -38,15 +38,15 @@ public class Prompt
         String login_user = input.nextLine();
         
         System.out.printf("<< Password: ");
-        String login_password = input.nextLine();
+        String password_login = input.nextLine();
 
-        if ( engine.login_user(login_user, login_password) )
+        if ( engine.login_user(login_user, password_login) )
             System.out.printf("\n>> Successfully signed in!\n");
         else
             System.out.printf("\n>> Wrong combination.. Try again later\n");
     }
 
-    private void new_reminder(Engine engine)
+    private void create_reminder(Engine engine)
     {
         Scanner input = new Scanner(System.in);
 
@@ -87,7 +87,7 @@ public class Prompt
                     break;
 
                 case 3:
-                    app.new_reminder(engine);
+                    app.create_reminder(engine);
                     break;
                 
                 case 0:
