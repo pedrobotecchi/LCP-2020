@@ -11,7 +11,7 @@ public class Reminder
     {
         this.title = title;
         this.description = description;
-        this.finished = false;
+        this.set_unfinished();
     }
     /* --constructors-- */
 
