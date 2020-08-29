@@ -58,12 +58,52 @@ public class Prompt
         System.out.printf("<< Desciption: ");
         String description = input.nextLine();
 
-        engine.add_reminder(title, description);
+        if ( engine.add_reminder(title, description) )
+            System.out.printf("\n>> Successfully created!\n");
+        else
+            System.out.printf("\n>> Login first!\n");
     }
 
-    private void show_reminders(Engine engine)
+    private void close_reminder(Engine engine)
     {
-        ArrayList<Reminder> reminders = engine.show_reminders();
+        Scanner input = new Scanner(System.in);
+
+        System.out.printf("\n<< Reminder index: ");
+        int index = input.nextInt();
+
+        try
+        {
+            if ( engine.close_reminder(index) )
+                System.out.printf("\n>> Successfully closed!\n");
+            else
+                System.out.printf("\n>> Login first!\n");
+        }
+
+        catch ( IndexOutOfBoundsException e ) { System.out.printf("\n>> Invalid index\n"); }
+    }
+
+    private void show_due_reminders(Engine engine)
+    {
+        ArrayList<Reminder> reminders = engine.get_due_reminders();
+        
+        if ( reminders != null )
+        {
+            Iterator<Reminder> i = reminders.iterator();
+    
+            System.out.println();
+            while ( i.hasNext() )
+            {
+                Reminder cur_reminder = i.next();
+                System.out.printf(">> Reminder: %s - %s\n", cur_reminder.get_title(), cur_reminder.get_description());
+            }
+        }
+        else
+            System.out.printf("\n>> Login first!\n");
+    }
+
+    private void show_closed_reminders(Engine engine)
+    {
+        ArrayList<Reminder> reminders = engine.get_closed_reminders();
         
         if ( reminders != null )
         {
@@ -93,7 +133,7 @@ public class Prompt
         {
             System.out.printf("\n-----------------------------------------\n");
             System.out.printf(">> To-do List Command Prompt (0 to close)\n");
-            System.out.printf("\n>> 1. Sign up\n>> 2. Sign in\n>> 3. Create reminder\n>> 4. Show reminders\n<< Op: ");
+            System.out.printf("\n>> 1. Sign up\n>> 2. Sign in\n>> 3. Create reminder\n>> 4. Close reminder\n>> 5. Show due reminders\n>> 6. Show closed reminders\n<< Op: ");
             
             op = input.nextInt();
             
@@ -112,7 +152,15 @@ public class Prompt
                     break;
 
                 case 4:
-                    app.show_reminders(engine);
+                    app.close_reminder(engine);
+                    break;
+
+                case 5:
+                    app.show_due_reminders(engine);
+                    break;
+
+                case 6:
+                    app.show_closed_reminders(engine);
                     break;
                 
                 case 0:
