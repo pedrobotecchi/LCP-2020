@@ -32,7 +32,8 @@ public class Engine
             
             return true;
         }
-        else return false;
+        else
+            return false;
     }
 
     // try to login with a user: returns true if the user is found and set the current_user | false if it doesn't find
@@ -45,7 +46,8 @@ public class Engine
             this.current_user = hash_users.get(id);
             return true;
         }
-        else return false;
+        else
+            return false;
     }
 
     // add a new reminder to the selected user: returns true if successfully added | false if not
@@ -60,6 +62,7 @@ public class Engine
             return false;
     }
 
+    // returns an arraylist with all the reminders of the current selected user or null if none was logged yet
     public ArrayList<Reminder> show_reminders()
     {
         if ( this.current_user != null )
