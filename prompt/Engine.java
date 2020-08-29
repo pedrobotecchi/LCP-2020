@@ -55,18 +55,40 @@ public class Engine
     {
         if ( this.current_user != null )
         {
-            this.current_user.new_reminder(title, description);
+            this.current_user.add_reminder(title, description);
             return true;
         }
         else
             return false;
     }
 
-    // returns an arraylist with all the reminders of the current selected user or null if none was logged yet
-    public ArrayList<Reminder> show_reminders()
+    // TODO: public boolean delete_reminder(int index)
+
+    public boolean close_reminder(int index)
     {
         if ( this.current_user != null )
-            return this.current_user.get_reminders();
+        {
+            this.current_user.close_reminder(index);
+            return true;
+        }
+        else
+            return false;
+    }
+
+    // returns an arraylist with all the due reminders of the current selected user or null if none was logged yet
+    public ArrayList<Reminder> get_due_reminders()
+    {
+        if ( this.current_user != null )
+            return this.current_user.get_due_reminders();
+        else
+            return null;
+    }
+
+    // returns an arraylist with all the closed reminders of the current selected user or null if none was logged yet
+    public ArrayList<Reminder> get_closed_reminders()
+    {
+        if ( this.current_user != null )
+            return this.current_user.get_closed_reminders();
         else
             return null;
     }
