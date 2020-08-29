@@ -50,7 +50,7 @@ public class Engine
             return false;
     }
 
-    // add a new reminder to the selected user: returns true if successfully added | false if not
+    // add a new reminder to the selected user: returns true if successfully added | false if not (meaning there is no user logged)
     public boolean add_reminder(String title, String description)
     {
         if ( this.current_user != null )
@@ -64,6 +64,7 @@ public class Engine
 
     // TODO: public boolean delete_reminder(int index)
 
+    // close a due reminder by its index: returns true if successfully closed | false if not (meaning there is no user logged)
     public boolean close_reminder(int index)
     {
         if ( this.current_user != null )
