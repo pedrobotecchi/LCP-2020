@@ -1,10 +1,12 @@
 package classes;
 
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.TreeSet;
 import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 
 public class Engine
 {
@@ -21,9 +23,17 @@ public class Engine
     private static HashMap<Integer, User> hash_users;
     private static TreeSet<String> tree_login_user;
 
-    private User current_user;
+    //private User current_user;
+    public static User current_user;
     /* --class attributes-- */
-
+    
+    /* -- BD Variables -- */
+    private com.mysql.jdbc.Connection myConn = null;
+    private com.mysql.jdbc.Statement myStmt = null;
+    private ResultSet myRs = null;
+    BDFunctions bd = new BDFunctions();
+    /* -- BD Variables -- */
+    
     /* --constructors-- */
     public Engine()
     {
@@ -34,38 +44,70 @@ public class Engine
 
     /* --public methods-- */
     // add user to the hashmap: returns true if successfully added | false if not
-    public boolean add_user(String name, String surname, String email, String phone_number, String user_login, String password_login)
-    {
-        if ( !tree_login_user.contains(user_login) )
-        {
-            tree_login_user.add(user_login);
-            
-            int id = (user_login + password_login).hashCode();
-            hash_users.put(id, new User(name, surname, email, phone_number, user_login));
-            
-            return true;
+    public boolean add_user(User user, String password_login)
+    { 
+        if((bd.bdCheckUser(user.getLogin(),this).equals(""))){
+            return bd.bdInsertUser(user, password_login);
         }
-        else return false;
+        
+        return false;
     }
 
+    public boolean updateUser(User user, String password_login,String oldUser)
+    { 
+        String newUser = user.getLogin();
+        user.setLogin(oldUser);
+        
+        int userId = bd.bdSearchUserID(user);
+        
+        user.setLogin(newUser);
+        
+        if(bd.bdUpdateUser(user,password_login,userId)){
+            this.current_user = user;
+            return true;
+        }
+        else        
+            return false;
+    }
+    
     // try to login with a user: returns true if the user is found and set the current_user | false if it doesn't find
     public boolean login_user(String user_login, String password_login)
     {
         int id = (user_login + password_login).hashCode();
 
-        if ( hash_users.containsKey(id) )
-        {
-            this.current_user = hash_users.get(id);
-            return true;
+        String password = bd.bdCheckUser(user_login,this);
+
+        if(password.equals(password_login)){
+            return true;    
+        } else {
+            return false;
         }
-        else return false;
+ 
     }
 
+    public void updateReminder(Reminder reminder){
+        bd.bdUpdateReminder(reminder);
+    }
+    
     // add a new reminder to the selected user
-    public void add_reminder(String title, String description)
+    public void add_reminder(String title, String description, User user)
     {
-        if ( this.current_user != null )
-            this.current_user.new_reminder(title, description);
+        int user_id = bd.bdSearchUserID(user);
+        
+        if(user_id!=-1){
+            Reminder reminder = new Reminder(title,description,false);
+            if(bd.bdAddReminder(reminder,user_id)){
+                JOptionPane.showMessageDialog(null, "Reminder Inserted !!!");
+            } else{
+                JOptionPane.showMessageDialog(null, "ERROR - The reminder wasn't inserted !!!");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "ERROR - User not Found!!!");
+        }
+        
+        //if ( this.current_user != null )
+        //    this.current_user.new_reminder(title, description);
         // else System.out.printf("\n>> Login first\n"); // TODO: throw exception if current_user == null (login_user was never called or returned false)
     }
     
@@ -77,8 +119,9 @@ public class Engine
     
     // Verifies if the phone is a valid Phone
     public boolean phoneValidation(String phone) {
-        Matcher matcher = pattern.matcher(phone);
-        return matcher.matches();
+        //Matcher matcher = pattern.matcher(phone);
+       // return matcher.matches();
+       return true;
     }
     /* --public methods-- */
     
@@ -87,8 +130,14 @@ public class Engine
     /* --private methods-- */
 
     /* --setters-- */
+    public void setCurrentUser(User user){
+        this.current_user = user;
+    }
     /* --setters-- */
     
     /* --getters-- */
+    public User getCurrentUser(){
+        return this.current_user;
+    }
     /* --getters-- */
 }

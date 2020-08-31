@@ -7,6 +7,7 @@ package lcpproject;
 
 import javax.swing.JOptionPane;
 import classes.*;
+import java.sql.*;
 
 /**
  *
@@ -174,6 +175,9 @@ public class SignIn extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Welcome to the system!!");
             incorrectLabel.setVisible(false);
             // Insert the actviities panel wich i will built later
+            ReminderScreen RS = new ReminderScreen(engine.getCurrentUser());
+            setVisible(false);
+            RS.setVisible(true);
         } else {
             incorrectLabel.setVisible(true);
         }
@@ -187,7 +191,7 @@ public class SignIn extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws SQLException{
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -211,6 +215,9 @@ public class SignIn extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+        BDFunctions bd = new BDFunctions();
+        
+        bd.bdConnect();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

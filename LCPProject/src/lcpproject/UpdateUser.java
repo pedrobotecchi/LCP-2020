@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  *
  * @author Pedro Botecchi
  */
-public class SignUp extends javax.swing.JFrame {
+public class UpdateUser extends javax.swing.JFrame {
     /* --class User attributes-- */
     private String name;
     private String surname;
@@ -22,16 +22,16 @@ public class SignUp extends javax.swing.JFrame {
     private String login_user;
     private String password_user;
     /* --classes -- */ 
-    static SignUp sgUP;
-    static SignIn sgIN;
-    static Engine engine = new Engine();
+    static UpdateUser sgUP;
+    static Engine engine;
 
     /**
      * Creates new form SignUp
      */
-    public SignUp(SignIn sgIN) {
+    public UpdateUser(Engine engine) {
+        this.engine = engine;
         initComponents();
-        this.sgIN = sgIN;
+        loadInfo();
     }
 
     /**
@@ -72,7 +72,6 @@ public class SignUp extends javax.swing.JFrame {
         setTitle("SignUp");
         setBounds(new java.awt.Rectangle(0, 0, 1280, 720));
         setLocationByPlatform(true);
-        setMaximumSize(new java.awt.Dimension(1920, 1080));
         setMinimumSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -94,12 +93,12 @@ public class SignUp extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Arial Narrow", 1, 48)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(213, 213, 213));
-        jLabel4.setText("Sign Up");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 210, 150, 60));
+        jLabel4.setText("Update User");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 210, 250, 60));
 
         jLabel5.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(213, 213, 213));
-        jLabel5.setText("Complete the Fields to sign up the system...");
+        jLabel5.setText("Complete the Fields to update your data");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 270, 330, 20));
 
         jLabel6.setForeground(new java.awt.Color(213, 213, 213));
@@ -157,7 +156,7 @@ public class SignUp extends javax.swing.JFrame {
         sendButton.setBackground(new java.awt.Color(50, 50, 52));
         sendButton.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         sendButton.setForeground(new java.awt.Color(255, 255, 255));
-        sendButton.setText("Send");
+        sendButton.setText("Update");
         sendButton.setOpaque(false);
         sendButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -199,6 +198,7 @@ public class SignUp extends javax.swing.JFrame {
         boolean validationFlag = false;
         
         /*-- Catch all the fields (Do a future validation) --*/
+        String oldUser = engine.current_user.getLogin();
         name = nameField.getText();
         surname = surnameField.getText();
         phone_number = phoneField.getText();
@@ -230,14 +230,11 @@ public class SignUp extends javax.swing.JFrame {
         
         if(!validationFlag){
             User temp = new User(name,surname,email,phone_number,login_user);
-                if(engine.add_user(temp, password_user)){
-                    JOptionPane.showMessageDialog(null,"User Sined-up. Welcome!!");
-                    sgIN.setEngine(engine);
-                    setVisible(false);
-                    sgIN.setVisible(true);   
+                if(engine.updateUser(temp, password_user, oldUser)){
+                    JOptionPane.showMessageDialog(null,"Changes Saved. Thanks!!");
+                    setVisible(false);   
                 } else {
-                    incorrectField.setText("User name already exists!!");
-                    userField.setBorder(BorderFactory.createLineBorder(Color.RED));
+                    JOptionPane.showMessageDialog(null,"It wasn't possible to change the data!!");
                 }
         }
         
@@ -246,9 +243,16 @@ public class SignUp extends javax.swing.JFrame {
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         // TODO add your handling code here:
         setVisible(false);
-        sgIN.setVisible(true);
     }//GEN-LAST:event_closeButtonActionPerformed
 
+    private void loadInfo(){
+        nameField.setText(engine.current_user.getName());
+        surnameField.setText(engine.current_user.getSurname());
+        emailField.setText(engine.current_user.getEmail());
+        phoneField.setText(engine.current_user.getPhoneNumber());
+        
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -266,14 +270,15 @@ public class SignUp extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SignUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SignUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SignUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SignUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         
@@ -281,7 +286,7 @@ public class SignUp extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                sgUP = new SignUp(sgIN);
+                //sgUP = new UpdateUser(sgIN);
                 sgUP.setLocationRelativeTo(null);
                 sgUP.setVisible(true);
             }

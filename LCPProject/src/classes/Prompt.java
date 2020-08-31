@@ -30,9 +30,9 @@ public class Prompt
         System.out.printf("<< Password: ");
         String login_password = input.nextLine();
         
-        if ( engine.add_user(name, surname, email, phone_number, login_user, login_password) )
-            System.out.printf("\n>> User successfully created!\n");
-        else System.out.printf("\n>> User already exists!\n");
+       // if ( engine.add_user(name, surname, email, phone_number, login_user, login_password, Engine engine = new Engine()))
+       //     System.out.printf("\n>> User successfully created!\n");
+       // else System.out.printf("\n>> User already exists!\n");
     }
 
     public void sign_in(Engine engine)
@@ -61,7 +61,7 @@ public class Prompt
         System.out.printf("<< Desciption: ");
         String description = input.nextLine();
 
-        engine.add_reminder(title, description);
+       // engine.add_reminder(title, description);
     }
 
     public static void main(String args[])

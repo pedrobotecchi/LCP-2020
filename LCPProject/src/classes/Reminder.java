@@ -15,14 +15,15 @@ public class Reminder
     protected String title;
     protected String description;
     protected boolean finished;
+    private int reminderId;
     /* --class attributes-- */
 
     /* --constructors-- */
-    protected Reminder(String title, String description)
+    protected Reminder(String title, String description, boolean finished)
     {
         this.title = title;
         this.description = description;
-        this.finished = false;
+        this.finished = finished;
     }
     /* --constructors-- */
 
@@ -33,10 +34,19 @@ public class Reminder
     /* --private methods-- */
 
     /* --setters-- */
-    protected void set_finished() { this.finished = true; }
-    protected void set_unfinished() { this.finished = false; }
+    public void set_finished() { this.finished = true; }
+    public void set_unfinished() { this.finished = false; }
+    public void setTitle(String title) {this.title = title;}
+    public void setDescription(String description) {this.description = description;}
+    public void setId(int id) {this.reminderId = id;}
     /* --setters-- */
     
     /* --getters-- */
+    public boolean getFinished() {return this.finished;}
+    public String get_title() { return this.title; }
+    public String get_description() { return this.description; }
+    public String getTitle(){ return this.title;}
+    public String getDescription(){ return this.description;}
+    public int getId(){return this.reminderId;}
     /* --getters-- */
 }
