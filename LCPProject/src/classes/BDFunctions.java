@@ -23,14 +23,17 @@ public class BDFunctions {
     
     private ResultSet myRs = null;
     
+    private String user = "root";
+    private String pass = "";
+    private String url = "jdbc:mysql://localhost:3306/lcp?zeroDateTimeBehavior=convertToNull";
+    
     public void bdConnect(){
         
-        String user = "root";
-        String pass = "";
+        
         
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            myConn = (com.mysql.jdbc.Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/lcp?zeroDateTimeBehavior=convertToNull",user,"");
+            myConn = (com.mysql.jdbc.Connection) DriverManager.getConnection(this.url,this.user,this.pass);
             myStmt = (com.mysql.jdbc.Statement) myConn.createStatement();
             
             JOptionPane.showMessageDialog(null, "Connected");
@@ -42,9 +45,8 @@ public class BDFunctions {
     public String bdCheckUser(String login, Engine engine){
         try{
             String password = "";
-            String name="";
             Class.forName("com.mysql.jdbc.Driver");
-            myConn = (com.mysql.jdbc.Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/lcp?zeroDateTimeBehavior=convertToNull","root","");
+            myConn = (com.mysql.jdbc.Connection) DriverManager.getConnection(this.url,this.user,this.pass);
             myStmt = (com.mysql.jdbc.Statement) myConn.createStatement();
 
             ResultSet RS= myStmt.executeQuery
@@ -72,7 +74,7 @@ public class BDFunctions {
     public boolean bdInsertUser(User user,String password){
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            myConn = (com.mysql.jdbc.Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/lcp?zeroDateTimeBehavior=convertToNull","root","");
+            myConn = (com.mysql.jdbc.Connection) DriverManager.getConnection(this.url,this.user,this.pass);
             myStmt = (com.mysql.jdbc.Statement) myConn.createStatement();
 
             myStmt.executeUpdate
@@ -97,7 +99,7 @@ public class BDFunctions {
             int id = 0;
 
             Class.forName("com.mysql.jdbc.Driver");
-            myConn = (com.mysql.jdbc.Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/lcp?zeroDateTimeBehavior=convertToNull","root","");
+            myConn = (com.mysql.jdbc.Connection) DriverManager.getConnection(this.url,this.user,this.pass);
             myStmt = (com.mysql.jdbc.Statement) myConn.createStatement();
 
             ResultSet RS= myStmt.executeQuery
@@ -120,7 +122,7 @@ public class BDFunctions {
     public boolean bdAddReminder(Reminder reminder,int user_id){
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            myConn = (com.mysql.jdbc.Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/lcp?zeroDateTimeBehavior=convertToNull","root","");
+            myConn = (com.mysql.jdbc.Connection) DriverManager.getConnection(this.url,this.user,this.pass);
             myStmt = (com.mysql.jdbc.Statement) myConn.createStatement();
 
             myStmt.executeUpdate
@@ -142,7 +144,7 @@ public class BDFunctions {
         
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            myConn = (com.mysql.jdbc.Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/lcp?zeroDateTimeBehavior=convertToNull","root","");
+            myConn = (com.mysql.jdbc.Connection) DriverManager.getConnection(this.url,this.user,this.pass);
             myStmt = (com.mysql.jdbc.Statement) myConn.createStatement();
 
             ResultSet RS= myStmt.executeQuery
@@ -177,7 +179,7 @@ public class BDFunctions {
     public boolean bdUpdateUser(User user,String password_login,int id){
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            myConn = (com.mysql.jdbc.Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/lcp?zeroDateTimeBehavior=convertToNull","root","");
+            myConn = (com.mysql.jdbc.Connection) DriverManager.getConnection(this.url,this.user,this.pass);
             myStmt = (com.mysql.jdbc.Statement) myConn.createStatement();
 
             myStmt.executeUpdate
@@ -201,7 +203,7 @@ public class BDFunctions {
     public boolean bdUpdateReminder(Reminder reminder){
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            myConn = (com.mysql.jdbc.Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/lcp?zeroDateTimeBehavior=convertToNull","root","");
+            myConn = (com.mysql.jdbc.Connection) DriverManager.getConnection(this.url,this.user,this.pass);
             myStmt = (com.mysql.jdbc.Statement) myConn.createStatement();
 
             myStmt.executeUpdate
@@ -222,7 +224,7 @@ public class BDFunctions {
      public boolean bdRemoveReminder(Reminder reminder){
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            myConn = (com.mysql.jdbc.Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/lcp?zeroDateTimeBehavior=convertToNull","root","");
+            myConn = (com.mysql.jdbc.Connection) DriverManager.getConnection(this.url,this.user,this.pass);
             myStmt = (com.mysql.jdbc.Statement) myConn.createStatement();
 
             myStmt.executeUpdate

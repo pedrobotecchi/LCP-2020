@@ -67,6 +67,7 @@ public class ReminderScreen extends javax.swing.JFrame {
         finishedButton = new javax.swing.JButton();
         unfinishedButton = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
         removeReminder = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -85,7 +86,7 @@ public class ReminderScreen extends javax.swing.JFrame {
         HeaderLabel.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         HeaderLabel.setForeground(new java.awt.Color(255, 255, 255));
         HeaderLabel.setText("Your To-Dos");
-        getContentPane().add(HeaderLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 60, 180, 40));
+        getContentPane().add(HeaderLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 50, 180, 40));
 
         rList1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         rList1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -166,7 +167,11 @@ public class ReminderScreen extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 600, 200, 30));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 600, 240, 30));
+
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 380, 230, 210));
 
         removeReminder.setText("Remove");
         removeReminder.addActionListener(new java.awt.event.ActionListener() {
@@ -181,6 +186,11 @@ public class ReminderScreen extends javax.swing.JFrame {
         jLabel1.setText("To-Do's");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 130, 60, -1));
 
+        rList2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rList2MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(rList2);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 170, 350, 430));
@@ -200,6 +210,9 @@ public class ReminderScreen extends javax.swing.JFrame {
         title = titleText.getText();
         description = descText.getText();
         
+        titleText.setText("");
+        descText.setText("");
+        
         engine.add_reminder(title,description,engine.getCurrentUser());
         
         listReminders();
@@ -209,6 +222,9 @@ public class ReminderScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         List<Reminder> lst = new ArrayList<Reminder>();
         lst = rList1.getSelectedValuesList();
+        
+        titleText.setText("");
+        descText.setText("");
         
         for(int i=0;i<lst.size();i++){
             lst.get(i).set_finished();
@@ -222,6 +238,9 @@ public class ReminderScreen extends javax.swing.JFrame {
                 // TODO add your handling code here:
         List<Reminder> lst = new ArrayList<Reminder>();
         lst = rList2.getSelectedValuesList();
+        
+        titleText.setText("");
+        descText.setText("");
         
         for(int i=0;i<lst.size();i++){
             lst.get(i).set_unfinished();
@@ -239,15 +258,18 @@ public class ReminderScreen extends javax.swing.JFrame {
 
     private void rList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rList1MouseClicked
         // TODO add your handling code here:
+        titleText.setText("");
+        descText.setText("");
         JList list = (JList)evt.getSource();
         if (evt.getClickCount() == 2) {
 
             // Double-click detected
             Reminder lst = rList1.getSelectedValue();
-        
+            
             titleText.setText(lst.getTitle());
             descText.setText(lst.getDescription());
-        } 
+        }
+        rList2.clearSelection();
     }//GEN-LAST:event_rList1MouseClicked
 
     private void modifyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyButtonActionPerformed
@@ -283,8 +305,12 @@ public class ReminderScreen extends javax.swing.JFrame {
         lst = rList1.getSelectedValuesList();
         lst2 = rList2.getSelectedValuesList();
         
-        lst.addAll(lst2);
-       
+        if(lst.isEmpty() && !lst2.isEmpty()){
+            lst = lst2;
+        } else if(!lst.isEmpty() && !lst2.isEmpty())
+            lst.addAll(lst2);
+ 
+        
         int op = JOptionPane.showConfirmDialog(null, "Confirm reminders exclusion?", "DELETE REMINDER", OK_CANCEL_OPTION);
         
         if(op==0){
@@ -303,6 +329,21 @@ public class ReminderScreen extends javax.swing.JFrame {
         SignIn sgIN = new SignIn();
         sgIN.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void rList2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rList2MouseClicked
+        // TODO add your handling code here:
+        titleText.setText("");
+        descText.setText("");
+        JList list = (JList)evt.getSource();
+        if (evt.getClickCount() == 2) {
+            // Double-click detected
+            Reminder lst = rList2.getSelectedValue();
+            
+            titleText.setText(lst.getTitle());
+            descText.setText(lst.getDescription());
+        }
+        rList1.clearSelection();
+    }//GEN-LAST:event_rList2MouseClicked
 
     public void listReminders(){
         ArrayList<Reminder> rm;
@@ -374,6 +415,7 @@ public class ReminderScreen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton modifyButton;

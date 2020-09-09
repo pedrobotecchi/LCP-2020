@@ -24,6 +24,7 @@ public class SignUp extends javax.swing.JFrame {
     /* --classes -- */ 
     static SignUp sgUP;
     static SignIn sgIN;
+    static ReminderScreen rs;
     static Engine engine = new Engine();
 
     /**
@@ -232,9 +233,11 @@ public class SignUp extends javax.swing.JFrame {
             User temp = new User(name,surname,email,phone_number,login_user);
                 if(engine.add_user(temp, password_user)){
                     JOptionPane.showMessageDialog(null,"User Sined-up. Welcome!!");
-                    sgIN.setEngine(engine);
+                    engine.setCurrentUser(temp);
+                    rs = new ReminderScreen(temp);
                     setVisible(false);
-                    sgIN.setVisible(true);   
+                    sgIN.setVisible(false);
+                    rs.setVisible(true);   
                 } else {
                     incorrectField.setText("User name already exists!!");
                     userField.setBorder(BorderFactory.createLineBorder(Color.RED));

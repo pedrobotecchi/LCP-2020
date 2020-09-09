@@ -7,6 +7,7 @@ package lcpproject;
 
 import javax.swing.JOptionPane;
 import classes.*;
+import java.awt.event.KeyEvent;
 import java.sql.*;
 
 /**
@@ -79,6 +80,11 @@ public class SignIn extends javax.swing.JFrame {
 
         passwordField.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         passwordField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                passwordFieldKeyReleased(evt);
+            }
+        });
         getContentPane().add(passwordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 410, 320, 30));
 
         loginButton.setBackground(new java.awt.Color(50, 50, 52));
@@ -184,6 +190,25 @@ public class SignIn extends javax.swing.JFrame {
         
         // Criar a interface para controle de atividades (Utilizar menus?)
     }//GEN-LAST:event_loginButtonActionPerformed
+
+    private void passwordFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyReleased
+        // TODO add your handling code here:
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            username = userField.getText();
+            password = passwordField.getPassword();
+             // Varre o banco de dados procurando pelo usuário passado e retorna se foi bem sucedido ou não
+            if(engine.login_user(username, String.valueOf(password))){
+                JOptionPane.showMessageDialog(null, "Welcome to the system!!");
+                incorrectLabel.setVisible(false);
+                // Insert the actviities panel wich i will built later
+                ReminderScreen RS = new ReminderScreen(engine.getCurrentUser());
+                setVisible(false);
+                RS.setVisible(true);
+            } else {
+                incorrectLabel.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_passwordFieldKeyReleased
 
     public void setEngine(Engine engine){ this.engine = engine; }
     public Engine getEngine(){ return this.engine;}

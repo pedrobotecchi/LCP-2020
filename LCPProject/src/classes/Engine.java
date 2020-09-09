@@ -14,10 +14,10 @@ public class Engine
     private static final String EMAIL_PATTERN = 
         "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
         + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-    private static final String PHONE_PATTERN = 
-        ".((10)|([1-9][1-9]).)\\s9?[6-9][0-9]{3}-[0-9]{4}"
-        + ".((10)|([1-9][1-9]).)\\s[2-5][0-9]{3}-[0-9]{4}";
+    private static final String PHONE_PATTERN1 = 
+        "^([0-9]{2})?((\\([0-9]{2})\\)|[0-9]{2})?([0-9]{3}|[0-9]{4})(\\-)?[0-9]{4}$";
     private static final Pattern pattern = Pattern.compile(EMAIL_PATTERN, Pattern.CASE_INSENSITIVE);
+    private static final Pattern patternPhone1 = Pattern.compile(PHONE_PATTERN1, Pattern.CASE_INSENSITIVE);
     
     /* --class attributes-- */
     private static HashMap<Integer, User> hash_users;
@@ -119,9 +119,9 @@ public class Engine
     
     // Verifies if the phone is a valid Phone
     public boolean phoneValidation(String phone) {
-        //Matcher matcher = pattern.matcher(phone);
-       // return matcher.matches();
-       return true;
+        Matcher matcher1 = patternPhone1.matcher(phone);
+        return (matcher1.matches());
+
     }
     /* --public methods-- */
     

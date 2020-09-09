@@ -3,10 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Pedro%20Botecchi/Desktop/LCP-2020/LCPProject/src/classes/Prompt.java</file>
+            <file>file:/C:/Users/Pedro%20Botecchi/Desktop/LCP-2020/LCPProject/src/classes/BDFunctions.java</file>
             <file>file:/C:/Users/Pedro%20Botecchi/Desktop/LCP-2020/LCPProject/src/lcpproject/SignIn.java</file>
-            <file>file:/C:/Users/Pedro%20Botecchi/Desktop/LCP-2020/LCPProject/src/lcpproject/mainFrame.java</file>
-            <file>file:/C:/Users/Pedro%20Botecchi/Desktop/LCP-2020/LCPProject/src/model/bean/User.java</file>
+            <file>file:/C:/Users/Pedro%20Botecchi/Desktop/LCP-2020/LCPProject/src/classes/Reminder.java</file>
+            <file>file:/C:/Users/Pedro%20Botecchi/Desktop/LCP-2020/LCPProject/src/classes/Engine.java</file>
             <file>file:/C:/Users/Pedro%20Botecchi/Desktop/LCP-2020/LCPProject/src/lcpproject/SignUp.java</file>
+            <file>file:/C:/Users/Pedro%20Botecchi/Desktop/LCP-2020/LCPProject/src/classes/User.java</file>
+            <file>file:/C:/Users/Pedro%20Botecchi/Desktop/LCP-2020/LCPProject/src/lcpproject/ReminderScreen.java</file>
         </group>
     </open-files>
 </project-private>
